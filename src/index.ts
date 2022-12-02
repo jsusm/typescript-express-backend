@@ -2,12 +2,17 @@ import express, {Request, Response} from 'express'
 import bodyParser from 'body-parser'
 import { Routes } from './routes.js';
 import { AppDataSource } from "./data-source.js";
+import { controllerError, errorHandler } from './middlewares/error.handler.js'
 
 AppDataSource.initialize().then(async () => {
   const app = express()
   app.use(bodyParser.json())
 
   loadRoutes(app)
+
+  // Error handling
+  app.use(controllerError)
+  app.use(errorHandler)
 
   app.listen(3000, () => console.log('Listen on port 3000'))
 })
