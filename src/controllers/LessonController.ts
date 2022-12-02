@@ -11,10 +11,6 @@ export class LessonController {
   }
 
   async findOne(req: Request, res: Response, next: NextFunction) {
-    throw controllerErr(404, "Lesson not found")
-
-    return this.repository.findOneBy({
-      id: parseInt(req.params.id)
-    })
+    return this.repository.findOneBy({})
   }
 }
