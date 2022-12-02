@@ -3,8 +3,10 @@ import { ControllerError } from '../errors/ControllerError.js'
 
 export function controllerError(err: Error, req: Request, res: Response, next: NextFunction) {
   if(err instanceof ControllerError){
-    res.status(err.status)
-    res.send(err.message)
+    res.status(err.status).send({
+      status: err.status,
+      message: err.message,
+    })
     return
   }
   next(err)

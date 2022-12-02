@@ -5,10 +5,17 @@ import { LessonController } from './controllers/LessonController.js'
  */
 export const Routes = [
   {
-    route: "/",
+    route: "/lessons",
     method: "get",
     middlewares: [],
     controller: LessonController,
     action: 'all'
+  },
+  {
+    route: "/lessons/:id",
+    method: "get",
+    middlewares: [],
+    controller: LessonController,
+    action: 'findOne'
   }
 ]
