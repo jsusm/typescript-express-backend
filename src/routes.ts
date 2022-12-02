@@ -1,13 +1,13 @@
-import type { Request, Response} from 'express'
+import { LessonController } from './controllers/LessonController.js'
+
 /**
  * All application routes.
  */
-export const AppRoutes = [
+export const Routes = [
   {
-    path: "/",
+    route: "/",
     method: "get",
-    action: async (req: Request, res: Response) => {
-      res.send("Hello world")
-    }
+    controller: LessonController,
+    action: 'all'
   }
 ]
