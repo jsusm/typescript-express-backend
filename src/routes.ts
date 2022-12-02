@@ -7,6 +7,7 @@ export const Routes = [
   {
     route: "/",
     method: "get",
+    middlewares: [],
     controller: LessonController,
     action: 'all'
   }
