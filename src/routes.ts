@@ -1,6 +1,6 @@
 import { LessonController } from './controllers/LessonController.js'
 import { schemaValidator } from './middlewares/validator.handler.js'
-import { getLessonSchema } from './schemes/lesson.scheme.js'
+import { getLessonSchema, createLessonSchema } from './schemes/lesson.scheme.js'
 
 /**
  * All application routes.
@@ -19,5 +19,13 @@ export const Routes = [
     middlewares: [schemaValidator(getLessonSchema, 'params')],
     controller: LessonController,
     action: 'findOne'
+  },
+  {
+    route: "/lessons",
+    method: "post",
+    middlewares: [schemaValidator(createLessonSchema, 'body')],
+    controller: LessonController,
+    action: 'create'
   }
+
 ]

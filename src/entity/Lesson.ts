@@ -18,7 +18,7 @@ export class Lesson {
   @Column()
   price: number
 
-  @Column()
+  @Column({ default: false })
   active: boolean
 
   @OneToMany(() => Session, (session) => session.lesson)
