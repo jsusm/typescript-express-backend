@@ -26,8 +26,21 @@ export class LessonController {
       throw controllerErr(404, 'startTime must be before endTime.')
     }
 
-    const rta = this.repository.create(data)
+    const rta = await this.repository.save(data)
     res.status(201)
     return rta
+  }
+  async update(req: Request, res: Response, next: NextFunction){
+    const data = req.body
+    const id = parseInt(req.params.id)
+    return await this.repository.save({
+      id: id,
+      ...data
+    })
+  }
+  async delete(req: Request, res: Response, next: NextFunction){
+    const id = parseInt(req.params.id)
+    await this.repository.delete(id)
+    return {id}
   }
 }
