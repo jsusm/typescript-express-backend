@@ -10,10 +10,10 @@ export class Lesson {
   title: string
 
   @Column('time without time zone')
-  startTime: Date
+  startTime: string
 
   @Column('time without time zone')
-  endTime: Date
+  endTime: string
 
   @Column()
   price: number

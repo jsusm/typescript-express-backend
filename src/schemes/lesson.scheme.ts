@@ -2,7 +2,7 @@ import Joi from 'joi'
 
 const id = Joi.number().integer()
 const title = Joi.string().max(100).min(5)
-const timeFormatRegex = /(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)((-(\d{2}):(\d{2})|Z)?)/
+const timeFormatRegex = /(\d{2}):(\d{2}):(\d{2})$/
 const startTime = Joi.string().regex(timeFormatRegex)
 const endTime = Joi.string().regex(timeFormatRegex)
 const price = Joi.number().integer().min(100)

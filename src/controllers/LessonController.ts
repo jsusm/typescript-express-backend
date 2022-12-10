@@ -2,7 +2,7 @@ import { AppDataSource } from '../data-source.js'
 import type { Request, Response, NextFunction } from "express";
 import { Lesson } from "../entity/Lesson.js";
 import { controllerErr } from '../errors/ControllerError.js'
-import { timeStringToDate, isBefore  } from '../lib/time.js'
+import { Time } from '../lib/time.js'
 import { updateLessonType } from '../schemes/lesson.scheme.js'
 
 export class LessonController {
@@ -18,11 +18,9 @@ export class LessonController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     const data = req.body as updateLessonType
-    const startTime = timeStringToDate(data.startTime)
-    const endTime = timeStringToDate(data.endTime)
-    console.log(startTime)
-    console.log(endTime)
-    if(!isBefore(startTime, endTime)){
+    const startTime = new Time(data.startTime)
+    const endTime = new Time(data.endTime)
+    if(!startTime.isBefore(endTime)){
       throw controllerErr(404, 'startTime must be before endTime.')
     }
 
