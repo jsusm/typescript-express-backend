@@ -15,7 +15,7 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: ['query', 'error'],
   entities: [Lesson, Student, Session, Payment],
-  migrations: ['src/migrations/*.js'],
+  migrations: ['src/db/migrations/*.js'],
   subscribers: [],
 })
 

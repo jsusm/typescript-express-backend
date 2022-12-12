@@ -1,6 +1,6 @@
-import { AppDataSource } from '../data-source.js'
+import { AppDataSource } from '../db/data-source.js'
 import type { Request, Response, NextFunction } from "express";
-import { Student } from '../entity/Student.js';
+import { Student } from '../db/entity/Student.js';
 import { controllerErr } from '../errors/ControllerError.js';
 
 export class StudentController {

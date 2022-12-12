@@ -1,6 +1,6 @@
-import { AppDataSource } from '../data-source.js'
+import { AppDataSource } from '../db/data-source.js'
 import type { Request, Response, NextFunction } from "express";
-import { Lesson } from "../entity/Lesson.js";
+import { Lesson } from "../db/entity/Lesson.js";
 import { controllerErr } from '../errors/ControllerError.js'
 import { Time } from '../lib/time.js'
 import { updateLessonType } from '../schemes/lesson.scheme.js'

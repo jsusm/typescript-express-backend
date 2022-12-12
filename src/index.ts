@@ -1,7 +1,7 @@
 import express, {Request, Response} from 'express'
 import bodyParser from 'body-parser'
 import { Routes } from './routes.js';
-import { AppDataSource } from "./data-source.js";
+import { AppDataSource } from "./db/data-source.js";
 import { controllerErrorHandler, joiErrorHandler, errorHandler } from './middlewares/error.handler.js'
 
 AppDataSource.initialize().then(async () => {
