@@ -4,23 +4,23 @@ import { Session } from './Session.js'
 @Entity()
 export class Student {
   @PrimaryGeneratedColumn()
-  id: number
+  id!: number
 
   @Column()
-  name: string
+  name!: string
 
   @Column()
-  lastName: string
+  lastName!: string
 
   @Column({ length: 30 })
-  contactNumber: string
+  contactNumber!: string
 
   @Column('date')
-  bornDate: Date
+  bornDate!: Date
 
   @Column()
-  studyLevel: string
+  studyLevel!: string
 
   @OneToMany(() => Session, (session) => session.student)
-  sessions: Session[]
+  sessions!: Session[]
 }

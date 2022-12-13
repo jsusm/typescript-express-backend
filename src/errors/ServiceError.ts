@@ -3,15 +3,15 @@ export type ServiceErrorOptions = {
 }
 
 export class ServiceError implements Error {
-  constructor(message: string | Error, options?: ServiceErrorOptions){
-    if(typeof message === "string") {
-      this.message = message
-    }else if(message instanceof Error) {
+  constructor(message: string | Error, options?: ServiceErrorOptions) {
+    if (message instanceof Error) {
       this.message = message.message
       this.stack = message.stack
+    } else {
+      this.message = message
     }
     this.name = "ServiceError"
-    this.status = options.status ?? 500
+    this.status = options?.status ?? 500
   }
   name: string
   stack?: string

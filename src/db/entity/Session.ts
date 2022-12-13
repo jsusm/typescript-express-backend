@@ -6,21 +6,21 @@ import { Payment } from './Payment.js'
 @Entity()
 export class Session {
   @PrimaryGeneratedColumn()
-  id: number
+  id!: number
 
   @Column('timestamptz')
-  date: Date
+  date!: Date
 
   @Column()
-  attended: boolean
+  attended!: boolean
 
   @ManyToOne(() => Lesson, (lesson) => lesson.sessions)
-  lesson: Lesson
+  lesson!: Lesson
 
   @ManyToOne(() => Student, (student) => student.sessions)
-  student: Student
+  student!: Student
 
   @OneToOne(() => Payment)
   @JoinColumn()
-  payment: Payment
+  payment!: Payment
 }

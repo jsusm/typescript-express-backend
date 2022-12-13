@@ -4,23 +4,23 @@ import { Session } from './Session.js'
 @Entity()
 export class Lesson {
   @PrimaryGeneratedColumn()
-  id: number
+  id!: number
 
   @Column()
-  title: string
+  title!: string
 
   @Column('time without time zone')
-  startTime: string
+  startTime!: string
 
   @Column('time without time zone')
-  endTime: string
+  endTime!: string
 
   @Column()
-  price: number
+  price!: number
 
   @Column({ default: false })
-  active: boolean
+  active!: boolean
 
   @OneToMany(() => Session, (session) => session.lesson)
-  sessions: Session[]
+  sessions!: Session[]
 }

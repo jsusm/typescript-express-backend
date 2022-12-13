@@ -3,11 +3,11 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 @Entity()
 export class Payment {
   @PrimaryGeneratedColumn()
-  id: number
+  id!: number
 
   @Column()
-  reference: string
+  reference!: string
 
   @Column('timestamptz')
-  at: Date
+  at!: Date
 }
