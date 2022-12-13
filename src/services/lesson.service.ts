@@ -1,9 +1,9 @@
-import { DeepPartial } from "typeorm";
 import { AppDataSource } from "../db/data-source.js";
 import { Lesson } from "../db/entity/Lesson.js";
 import { serviceErr } from "../errors/ServiceError.js";
+import { LessonDTO, LessonRepository } from '../contracts/lesson.js'
 
-export class LessonService {
+export class LessonService implements LessonRepository {
   private repository = AppDataSource.getRepository(Lesson)
 
   async find() {
@@ -17,18 +17,16 @@ export class LessonService {
     }
     return lesson
   }
-  async create(data: DeepPartial<Lesson>) {
+  async create(data: LessonDTO) {
     const lesson = await this.repository.save(data)
     return lesson
   }
-  async update(id: number, data: DeepPartial<Lesson>){
+  async update(id: number, data: Partial<LessonDTO>){
     const lesson = await this.findOne(id)
-    const reply = await this.repository.update(lesson.id, data)
-    return reply
+    await this.repository.update(lesson.id, data)
   }
   async delete(id: number) {
     const lesson = await this.findOne(id)
-    const reply = await this.repository.delete(lesson)
-    return reply
+    await this.repository.delete(lesson)
   }
 }

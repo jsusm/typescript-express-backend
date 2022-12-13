@@ -28,8 +28,11 @@ export class Time {
     */
   private parseTime(time: string) {
     const pattern = /(\d{2}):(\d{2}):(\d{2})$/
-    const [match] = pattern.exec(time)
-    if (match !== time) {
+    const matchs = pattern.exec(time)
+    if(matchs === null || matchs.length < 1) {
+      throw new Error(`Invalid time format: ${time}`)
+    }
+    if (matchs[0] !== time) {
       throw new Error(`Invalid time format: ${time}`)
     }
     const [hours, minutes, seconds] = time.split(':')
