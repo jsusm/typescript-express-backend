@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { ZodError } from "zod";
 import { ControllerError } from '../errors/ControllerError.js'
 
 export function joiErrorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
@@ -8,6 +9,18 @@ export function joiErrorHandler(err: Error, req: Request, res: Response, next: N
       message: err.message
     })
     return
+  }
+  next(err)
+}
+export function zodErrorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
+  if(err instanceof ZodError){
+    let msg = 'Validation error:'
+    for(let i = 0; i < err.issues.length; i++) {
+      const issue = err.issues[i]
+      const endChar = i === err.issues.length - 1 ? '.' : ';'
+      msg = msg.concat(`${issue.message} at "${issue.path.join('.')}"`, endChar)
+    }
+    res.sendStatus(404).send(msg)
   }
   next(err)
 }
