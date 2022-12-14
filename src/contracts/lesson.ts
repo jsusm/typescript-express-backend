@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const timeFormatRegex = /(\d{2}):(\d{2}):(\d{2})$/
-export const lessonId = z.number().int()
+export const lessonId = z.coerce.number().int()
 export const lessonDTO = z.object({
   id: lessonId.optional(),
   title: z.string(),
