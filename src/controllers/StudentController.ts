@@ -25,7 +25,7 @@ export class StudentController {
   }
   async update(req: Request, res: Response) {
     const id = studentId.parse(req.params.id)
-    const data = studentDTO.parse(req.body)
+    const data = studentDTO.partial().parse(req.body)
     await this.repository.update(id, data)
     res.sendStatus(200)
   }
