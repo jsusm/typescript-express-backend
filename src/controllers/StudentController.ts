@@ -9,11 +9,11 @@ export class StudentController {
   }
   getRoutes() {
     return [
-      createRoute('/', "get", this.all),
-      createRoute('/:id', "get", this.findOne),
-      createRoute('/', "post", this.create),
-      createRoute('/:id', "patch", this.update),
-      createRoute('/:id', "delete", this.delete),
+      createRoute("get", '/', this.all),
+      createRoute("get", '/:id', this.findOne),
+      createRoute("post", '/', this.create),
+      createRoute("patch", '/:id', this.update),
+      createRoute("delete", '/:id', this.delete),
     ]
   }
   async all(req: Request, res: Response) {
