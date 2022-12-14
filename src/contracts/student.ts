@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const studentId = z.coerce.number().int()
+export const studentId = z.coerce.number().int()
 export const studentDTO = z.object({
   id: studentId.optional(),
   name: z.string().min(2).max(100),
