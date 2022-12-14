@@ -57,13 +57,17 @@ export class LessonController {
 
   async update(req: Request, res: Response) {
     const id = lessonId.parse(req.params.id)
-    const data = lessonDTO.parse(req.body)
-    timeValidator(data.startTime, data.endTime)
+    const data = lessonDTO.partial().parse(req.body)
+    if(data.startTime && data.endTime) {
+      timeValidator(data.startTime, data.endTime)
+    }
     await this.repository.update(id, data)
+    res.sendStatus(200)
   }
 
   async delete(req: Request, res: Response) {
     const id = lessonId.parse(req.params.id)
     await this.repository.delete(id)
+    res.sendStatus(200)
   }
 }

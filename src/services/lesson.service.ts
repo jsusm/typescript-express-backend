@@ -27,6 +27,6 @@ export class LessonService implements LessonRepository {
   }
   async delete(id: number) {
     const lesson = await this.findOne(id)
-    await this.repository.delete(lesson)
+    await this.repository.delete(lesson.id)
   }
 }

@@ -23,6 +23,7 @@ export function zodErrorHandler(err: Error, req: Request, res: Response, next: N
       msg = msg.concat(`${issue.message} at "${issue.path.join('.')}"`, endChar)
     }
     res.sendStatus(404).send(msg)
+    return
   }
   next(err)
 }
