@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { paymentDTO, paymentId, PaymentRepository } from "../contracts/payment.js";
 import { createRoute } from "./index.js";
+import { isEmpty } from '../lib/emptyObject.js'
 
 export class PaymentController {
   repository: PaymentRepository
@@ -32,6 +33,11 @@ export class PaymentController {
   async update(req: Request, res: Response) {
     const id = paymentId.parse(req.params.id)
     const data = paymentDTO.partial().parse(req.body)
+    if(isEmpty(data)) {
+      console.log("the data is empty", data)
+      res.send(200)
+      return
+    }
     await this.repository.update(id, data)
     res.send(200)
   }

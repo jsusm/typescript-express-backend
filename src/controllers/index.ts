@@ -2,9 +2,11 @@ import { Router, NextFunction, Request, Response } from 'express'
 import { LessonService } from '../services/lesson.service.js'
 import { StudentService } from '../services/student.service.js'
 import { SessionService } from '../services/session.service.js'
+import { PaymentService } from '../services/payments.service.js'
 import { LessonController } from './LessonController.js'
 import { StudentController } from './StudentController.js'
 import { SessionController } from './SessionController.js'
+import { PaymentController } from './PaymentController.js'
 
 export const controllers: Controller[] = [
   {
@@ -18,6 +20,10 @@ export const controllers: Controller[] = [
   {
     controller: new SessionController(new SessionService()),
     prefix: '/sessions'
+  },
+  {
+    controller: new PaymentController(new PaymentService()),
+    prefix: '/payments'
   },
 ]
 
