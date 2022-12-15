@@ -32,11 +32,11 @@ export class SessionController {
     const id = sessionId.parse(req.params.id)
     const data = sessionDTO.partial().parse(req.body)
     await this.repository.update(id, data)
-    res.send(200)
+    res.sendStatus(200)
   }
   async delete(req: Request, res: Response) {
     const id = sessionId.parse(req.params.id)
     await this.repository.delete(id)
-    res.send(200)
+    res.sendStatus(200)
   }
 }

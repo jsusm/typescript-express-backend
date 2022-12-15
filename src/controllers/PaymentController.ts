@@ -35,15 +35,15 @@ export class PaymentController {
     const data = paymentDTO.partial().parse(req.body)
     if(isEmpty(data)) {
       console.log("the data is empty", data)
-      res.send(200)
+      res.sendStatus(200)
       return
     }
     await this.repository.update(id, data)
-    res.send(200)
+    res.sendStatus(200)
   }
   async delete(req: Request, res: Response) {
     const id = paymentId.parse(req.params.id)
     await this.repository.delete(id)
-    res.send(200)
+    res.sendStatus(200)
   }
 }
