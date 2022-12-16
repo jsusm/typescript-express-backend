@@ -1,16 +1,15 @@
 import { Request, Response } from "express";
-import { z, ZodSchema } from "zod";
+import { z, ZodObject, ZodRawShape, ZodSchema, ZodTypeAny, objectInputType, objectOutputType } from "zod";
 import { Repository } from '../contracts/repository.js'
 import { createRoute } from "./index.js";
 
-export class CRUDController<model extends ZodSchema> {
-  schema: model
-  repository: Repository<model>
+export class CRUDController<schema extends ZodTypeAny>{
+  schema: ZodTypeAny = z.object({})
+  repository: Repository<z.output<schema>>
   path = '/'
   idParser = z.coerce.number().int()
-  constructor(repository: Repository<model>, schema: model) {
+  constructor(repository: Repository<z.output<schema>>) {
     this.repository = repository
-    this.schema = schema
   }
   getRoutes() {
     // TODO: convert routes array to map
