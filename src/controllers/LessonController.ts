@@ -1,9 +1,8 @@
-import { NextFunction, Request, Response } from "express";
-import { LessonRepository } from "../contracts/lesson.js";
+import { Request, Response } from "express";
 import { controllerErr } from '../errors/ControllerError.js'
 import { Time } from '../lib/time.js'
-import { lessonDTO, lessonId } from '../contracts/lesson.js'
-import { createRoute, Route } from './index.js'
+import { lessonDTO } from '../contracts/lesson.js'
+import { CRUDController } from './genericController.js'
 
 function timeValidator(startTime: string, endTime: string){
   let start: Time
@@ -20,54 +19,21 @@ function timeValidator(startTime: string, endTime: string){
   return {startTime: start, endTime: end}
 }
 
-export class LessonController {
-  private repository: LessonRepository
-  public path = "/lessons"
-
-  constructor(repository: LessonRepository) {
-    this.repository = repository
-  }
-
-  getRoutes(): Route[]{
-    return [
-      createRoute("get", "/", this.all ),
-      createRoute("get", "/:id", this.findOne ),
-      createRoute("post", "/", this.create ),
-      createRoute("patch", "/:id", this.update ),
-      createRoute("delete", "/:id", this.delete ),
-    ]
-  }
-
-  async all(req: Request, res: Response) {
-    return this.repository.find()
-  }
-
-  async findOne(req: Request, res: Response, next: NextFunction) {
-    const id = lessonId.parse(req.params.id)
-    const lesson = await this.repository.findOne(id)
-    return lesson
-  }
+export class LessonController extends CRUDController<typeof lessonDTO.shape, typeof lessonDTO> {
+  schema = lessonDTO
+  path = '/lessons'
 
   async create(req: Request, res: Response) {
     const data = lessonDTO.parse(req.body)
     timeValidator(data.startTime, data.endTime)
-    const newLesson = await this.repository.create(data)
-    res.sendStatus(201).send(newLesson)
+    return super.create(req, res)
   }
 
   async update(req: Request, res: Response) {
-    const id = lessonId.parse(req.params.id)
     const data = lessonDTO.partial().parse(req.body)
     if(data.startTime && data.endTime) {
       timeValidator(data.startTime, data.endTime)
     }
-    await this.repository.update(id, data)
-    res.sendStatus(200)
-  }
-
-  async delete(req: Request, res: Response) {
-    const id = lessonId.parse(req.params.id)
-    await this.repository.delete(id)
-    res.sendStatus(200)
+    return super.update(req, res)
   }
 }
