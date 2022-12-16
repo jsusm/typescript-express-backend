@@ -9,7 +9,7 @@ export abstract class CRUDController<
 >{
   abstract schema: Schema
   repository: Repository<z.output<Schema>>
-  path = '/'
+  abstract path: string
   idParser = z.coerce.number().int()
   constructor(repository: Repository<z.output<Schema>>) {
     this.repository = repository
