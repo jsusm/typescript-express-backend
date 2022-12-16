@@ -1,14 +1,17 @@
 import { Request, Response } from "express";
-import { z, ZodObject, ZodRawShape, ZodSchema, ZodTypeAny, objectInputType, objectOutputType } from "zod";
+import { z, ZodObject, ZodRawShape, ZodSchema, ZodTypeAny, objectInputType, objectOutputType, RawCreateParams, objectUtil } from "zod";
 import { Repository } from '../contracts/repository.js'
 import { createRoute } from "./index.js";
 
-export class CRUDController<schema extends ZodTypeAny>{
-  schema: ZodTypeAny = z.object({})
-  repository: Repository<z.output<schema>>
+export abstract class CRUDController<
+  Shape extends ZodRawShape,
+  Schema extends ZodObject<Shape, "strip", ZodTypeAny, { [k_1 in keyof objectUtil.addQuestionMarks<{ [k in keyof Shape]: Shape[k]["_output"]; }>]: objectUtil.addQuestionMarks<{ [k in keyof Shape]: Shape[k]["_output"]; }>[k_1]; }, { [k_3 in keyof objectUtil.addQuestionMarks<{ [k_2 in keyof Shape]: Shape[k_2]["_input"]; }>]: objectUtil.addQuestionMarks<{ [k_2 in keyof Shape]: Shape[k_2]["_input"]; }>[k_3]; }>
+>{
+  abstract schema: Schema
+  repository: Repository<z.output<Schema>>
   path = '/'
   idParser = z.coerce.number().int()
-  constructor(repository: Repository<z.output<schema>>) {
+  constructor(repository: Repository<z.output<Schema>>) {
     this.repository = repository
   }
   getRoutes() {
@@ -49,7 +52,7 @@ export class CRUDController<schema extends ZodTypeAny>{
    */
   async update(req: Request, res: Response) {
     const id = this.idParser.parse(req.params.id)
-    const data = this.schema.parse(req.body)
+    const data = this.schema.partial().parse(req.body)
     this.repository.update(id, data)
     res.sendStatus(200)
   }
