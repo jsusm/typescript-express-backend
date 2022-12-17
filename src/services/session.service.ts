@@ -10,6 +10,9 @@ export class SessionService implements SessionRepository {
     return await this.repository.find({
       skip: offset,
       take: limit,
+      order: {
+        id: "DESC",
+      }
     })
   }
   async findOne(id: number): Promise<SessionDTO> {

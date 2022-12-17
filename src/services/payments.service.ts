@@ -6,8 +6,14 @@ import { serviceErr } from "../errors/ServiceError.js";
 export class PaymentService implements PaymentRepository {
   repository = AppDataSource.getRepository(Payment)
 
-  async find(): Promise<PaymentDTO[]> {
-    return await this.repository.find()
+  async find(limit?: number, offset?:number): Promise<PaymentDTO[]> {
+    return await this.repository.find({
+      skip: offset,
+      take: limit,
+      order: {
+        id: "DESC",
+      }
+    })
   }
   async findOne(id: number): Promise<PaymentDTO> {
     const lesson = await this.repository.findOneBy({id})

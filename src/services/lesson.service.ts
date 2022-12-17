@@ -6,8 +6,14 @@ import { LessonDTO, LessonRepository } from '../contracts/lesson.js'
 export class LessonService implements LessonRepository {
   private repository = AppDataSource.getRepository(Lesson)
 
-  async find() {
-    const lessons = await this.repository.find()
+  async find(limit?: number, offset?: number) {
+    const lessons = await this.repository.find({
+      skip: offset,
+      take: limit,
+      order: {
+        id: "DESC",
+      }
+    })
     return lessons
   }
   async findOne(id: number){

@@ -11,8 +11,14 @@ export class StudentService implements StudentRepository {
     return newStudent
   }
 
-  async find(): Promise<StudentDTO[]> {
-    const students = await this.repository.find()
+  async find(limit?: number, offset?:number): Promise<StudentDTO[]> {
+    const students = await this.repository.find({
+      skip: offset,
+      take: limit,
+      order: {
+        id: "DESC",
+      }
+    })
     return students
   }
   async findOne(id: number): Promise<StudentDTO> {
