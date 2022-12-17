@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { Repository } from './repository.js'
 
 export const studentId = z.coerce.number().int()
 export const studentDTO = z.object({
@@ -14,11 +15,5 @@ export const studentDTO = z.object({
 
 export type StudentDTO = z.infer<typeof studentDTO>
 
-export interface StudentRepository {
-  find(): Promise<StudentDTO[]>
-  findOne(id: number): Promise<StudentDTO>
-  create(data: StudentDTO): Promise<StudentDTO>
-  update(id: number, data: Partial<StudentDTO>): Promise<void>
-  delete(id: number): Promise<void>
-}
+export type StudentRepository = Repository<StudentDTO>
 

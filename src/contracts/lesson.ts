@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm'
+import { Repository } from './repository.js'
 import { z } from 'zod'
 
 const timeFormatRegex = /(\d{2}):(\d{2}):(\d{2})$/
@@ -14,4 +14,4 @@ export const lessonDTO = z.object({
 
 export type LessonDTO = z.infer<typeof lessonDTO>
 
-export type LessonRepository = Repository<LessonDTO>
+export type LessonRepository = Repository<LessonDTO> 
