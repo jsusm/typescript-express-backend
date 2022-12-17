@@ -55,7 +55,7 @@ export abstract class CRUDController<
   async update(req: Request, res: Response) {
     const id = this.idParser.parse(req.params.id)
     const data = this.schema.partial().parse(req.body)
-    this.repository.update(id, data)
+    await this.repository.update(id, data)
     res.sendStatus(200)
   }
   /**
@@ -63,7 +63,7 @@ export abstract class CRUDController<
    */
   async delete(req: Request, res: Response) {
     const id = this.idParser.parse(req.params.id)
-    this.repository.delete(id)
+    await this.repository.delete(id)
     res.sendStatus(200)
   }
 }
