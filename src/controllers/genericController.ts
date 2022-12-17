@@ -1,7 +1,13 @@
 import { Request, Response } from "express";
 import { z, ZodObject, ZodRawShape, ZodSchema, ZodTypeAny, objectInputType, objectOutputType, RawCreateParams, objectUtil } from "zod";
 import { Repository } from '../contracts/repository.js'
+import { controllerErr } from "../errors/ControllerError.js";
 import { createRoute } from "./index.js";
+
+const paginationParams = z.object({
+  limit: z.coerce.number().optional(),
+  offset: z.coerce.number().optional(),
+})
 
 export abstract class CRUDController<
   Shape extends ZodRawShape,
@@ -30,7 +36,8 @@ export abstract class CRUDController<
    * Returns all instances of the model 
    */
   async read(req: Request, res: Response) {
-    return this.repository.find()
+    const { limit, offset } = paginationParams.parse(req.query)
+    return this.repository.find(limit, offset)
   }
   /**
    * Returns an instance of the model by 

@@ -6,8 +6,11 @@ import { serviceErr } from "../errors/ServiceError.js";
 export class SessionService implements SessionRepository {
   repository = AppDataSource.getRepository(Session)
 
-  async find(): Promise<SessionDTO[]> {
-    return await this.repository.find()
+  async find(limit?: number, offset?: number): Promise<SessionDTO[]> {
+    return await this.repository.find({
+      skip: offset,
+      take: limit,
+    })
   }
   async findOne(id: number): Promise<SessionDTO> {
     const session = await this.repository.findOneBy({id})
