@@ -14,6 +14,9 @@ export abstract class CRUDController<
   constructor(repository: Repository<z.output<Schema>>) {
     this.repository = repository
   }
+  /**
+   * Bind routes with controller method
+   */
   getRoutes() {
     // TODO: convert routes array to map
     return [

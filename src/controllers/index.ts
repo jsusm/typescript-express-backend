@@ -1,4 +1,4 @@
-import { Router, NextFunction, Request, Response } from 'express'
+import { Router, NextFunction, Request, Response, RequestHandler } from 'express'
 import { LessonService } from '../services/lesson.service.js'
 import { StudentService } from '../services/student.service.js'
 import { SessionService } from '../services/session.service.js'
@@ -42,7 +42,7 @@ export type Route = {
   action: string,
 }
 
-export function createRoute(method: string, path: string, action: Function): Route {
+export function createRoute(method: string, path: string, action: RequestHandler): Route {
   return { method, path, action: action.name }
 }
 

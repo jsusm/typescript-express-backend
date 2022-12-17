@@ -21,7 +21,6 @@ function timeValidator(startTime: string, endTime: string){
 
 export class LessonController extends CRUDController<typeof lessonDTO.shape, typeof lessonDTO> {
   schema = lessonDTO
-  path = '/lessons'
 
   async create(req: Request, res: Response) {
     const data = lessonDTO.parse(req.body)
