@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "tsc": "tsc -w",
-    "dev": "nodemon ./build/index.js --watch ./build"
+    "dev": "nodemon ./build/index.js --watch ./build",
+    "start": "tsc && node ./build/index.js"
   },
   "keywords": [],
   "author": "",
